@@ -61,10 +61,10 @@
             <Button x:Name="LimpiarCola" Content="Limpiar" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="150px" Click="LimpiarCola_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Button x:Name="Vacia_Cola" Content="¿Está vacía?" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Vacia_Cola_Click"/>
-            <Button x:Name="Full_Cola" Content="¿Está llena?" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Full_Cola_Click"/>
-            <Button x:Name="Maximo_Cola" Content="Tamaño Máximo" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Maximo_Cola_Click"/>
-            <Button x:Name="Top_Cola" Content="Primero" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Top_Cola_Click"/>
+            <Button x:Name="Vacia_Cola" Content="¿Está vacía?" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+            <Button x:Name="Full_Cola" Content="¿Está llena?" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+            <Button x:Name="Maximo_Cola" Content="Tamaño Máximo" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+            <Button x:Name="Top_Cola" Content="Primero" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" >
             <TextBox x:Name="isEmptyText_Cola" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="150px"/>

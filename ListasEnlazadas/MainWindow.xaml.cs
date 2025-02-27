@@ -74,6 +74,11 @@ namespace ListasEnlazadas
                         ColaListBox.Items.Insert(0, data);
                         pila.push(data);
                     }
+                    else
+                    {
+                        MessageBox.Show("Ingresa un valor correcto", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                    }
                     ColaInput.Clear();
                 }
                 else
@@ -81,6 +86,10 @@ namespace ListasEnlazadas
                     MessageBox.Show("Pila llena");
                 }
             }
+            VaciaCola();
+            FullCola();
+            TopCola();
+            MaximoCola();
         }
         private void Cola_Delete_Click(object sender, RoutedEventArgs e)
         {
@@ -101,8 +110,12 @@ namespace ListasEnlazadas
                 pila.Pop();
                 ColaListBox.Items.RemoveAt(0);
             }
+            VaciaCola();
+            FullCola();
+            TopCola();
+            MaximoCola();
         }
-        private void Vacia_Cola_Click(object sender, RoutedEventArgs e)
+        private void VaciaCola()
         {
             if (bandera == false)
             {
@@ -126,7 +139,7 @@ namespace ListasEnlazadas
             }
         }
 
-        private void Full_Cola_Click(object sender, RoutedEventArgs e)
+        private void FullCola()
         {
             if (bandera == false)
             {
@@ -145,21 +158,21 @@ namespace ListasEnlazadas
                     isFullText_Cola.Text = "NO";
             }
         }
-        private void Top_Cola_Click(object sender, RoutedEventArgs e)
+        private void TopCola()
         {
             if (bandera == false)
             {
-                string top = cola.topElement();
-                CimaText_Cola.Text = top;
+                string topCola = cola.topElement();
+                CimaText_Cola.Text = topCola;
             }
             else
             {
-                string top = pila.TopElement();
-                CimaText_Cola.Text = top;
+                string topPila = pila.TopElement();
+                CimaText_Cola.Text = topPila;
             }
         }
 
-        private void Maximo_Cola_Click(object sender, RoutedEventArgs e)
+        private void MaximoCola()
         {
             if(bandera == false)
             {
@@ -189,18 +202,36 @@ namespace ListasEnlazadas
                 pila.clearPila();
                 ColaListBox.Items.Clear ();
             }
+            VaciaCola();
+            FullCola();
+            TopCola();
+            MaximoCola();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             txtMetodo.Text = "Metodo Colas";
             bandera = false;
+            pila.clearPila();
+            ColaInput.Text = "";
+            ColaListBox.Items.Clear();
+            isEmptyText_Cola.Text = "";
+            isFullText_Cola.Text = "";
+            MaxText_Cola.Text = "";
+            CimaText_Cola.Text = "";
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             txtMetodo.Text = "Metodo Pilas";
             bandera = true;
+            cola.dequeue();
+            ColaInput.Text = "";
+            ColaListBox.Items.Clear();
+            isEmptyText_Cola.Text = "";
+            isFullText_Cola.Text = "";
+            MaxText_Cola.Text = "";
+            CimaText_Cola.Text = "";
         }
     }
 }
