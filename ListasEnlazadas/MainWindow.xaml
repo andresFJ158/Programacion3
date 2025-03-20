@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ListasEnlazadas"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Width="500">
+        Title="MainWindow" Height="450" Width="500">
+    <Grid x:Name="GridCalculadora" Width="350" Background="LightGray" Height="500">
         <Grid.Style>
             <Style TargetType="Grid">
                 <Style.Resources>
                     <Style TargetType="Button">
-                        <Setter Property="Width" Value="160"/>
-                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="50"/>
+                        <Setter Property="Height" Value="50"/>
                         <Setter Property="Background" Value="LightBlue" />
                         <Setter Property="Foreground" Value="Black" />
                         <Setter Property="FontSize" Value="14" />
@@ -40,37 +40,42 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="200px"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Grid.Column="0">
-            <Button Content="Pilas" Click="Button_Click_1"/>
-            <Button Content="Colas" Click="Button_Click"/>
-        </Menu>
-        <TextBlock x:Name="txtMetodo" Grid.Row="0" Grid.Column="1" Text="Metodo Pilas" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-        <TextBox x:Name="ColaInput" TextWrapping="Wrap" Grid.Row="1" Grid.Column="0" Width="150px" HorizontalAlignment="Right"/>
-        <Button x:Name="Cola_Add" Content="Insertar" HorizontalAlignment="Left"  Grid.Row="1" Grid.Column="1" Click="Cola_Add_Click"/>
-        <ListBox x:Name="ColaListBox" Grid.Row="2" Grid.ColumnSpan="2"/>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <Button x:Name="Cola_Delete" Content="Quitar" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="150px" Click="Cola_Delete_Click"/>
-            <Button x:Name="LimpiarCola" Content="Limpiar" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="150px" Click="LimpiarCola_Click"/>
-        </StackPanel>
-        <StackPanel Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Button x:Name="Vacia_Cola" Content="¿Está vacía?" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
-            <Button x:Name="Full_Cola" Content="¿Está llena?" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
-            <Button x:Name="Maximo_Cola" Content="Tamaño Máximo" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
-            <Button x:Name="Top_Cola" Content="Primero" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        </StackPanel>
-        <StackPanel Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" >
-            <TextBox x:Name="isEmptyText_Cola" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="150px"/>
-            <TextBox x:Name="isFullText_Cola" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="150px"/>
-            <TextBox x:Name="MaxText_Cola" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="150px"/>
-            <TextBox x:Name="CimaText_Cola" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="150px"/>
-        </StackPanel>
+        <TextBox x:Name="ColaInput" Grid.Row="0" Grid.ColumnSpan="5" Width="320" Height="50" Margin="0,30,0,10"/>
+        <Button x:Name="btn_7" Content="7" Grid.Row="1" Grid.Column="0"/>
+        <Button x:Name="btn_8" Content="8" Grid.Row="1" Grid.Column="1"/>
+        <Button x:Name="btn_9" Content="9" Grid.Row="1" Grid.Column="2"/>
+        <Button x:Name="btn_div" Content="/" Grid.Row="1" Grid.Column="3"/>
+
+        <Button x:Name="btn_4" Content="4" Grid.Row="2" Grid.Column="0"/>
+        <Button x:Name="btn_5" Content="5" Grid.Row="2" Grid.Column="1"/>
+        <Button x:Name="btn_6" Content="6" Grid.Row="2" Grid.Column="2"/>
+        <Button x:Name="btn_mul" Content="*" Grid.Row="2" Grid.Column="3"/>
+
+        <Button x:Name="btn_1" Content="1" Grid.Row="3" Grid.Column="0"/>
+        <Button x:Name="btn_2" Content="2" Grid.Row="3" Grid.Column="1"/>
+        <Button x:Name="btn_3" Content="3" Grid.Row="3" Grid.Column="2"/>
+        <Button x:Name="btn_res" Content="-" Grid.Row="3" Grid.Column="3"/>
+
+        <Button x:Name="btn_0" Content="0" Grid.Row="4" Grid.Column="0"/>
+        <Button x:Name="btn_parentesisAbre" Content="(" Grid.Row="4" Grid.Column="1"/>
+        <Button x:Name="btn_parentesisCiere" Content=")" Grid.Row="4" Grid.Column="2"/>
+        <Button x:Name="btn_sum" Content="+" Grid.Row="4" Grid.Column="3"/>
+
+        <Button x:Name="btn_borrar" Content="Borrar" Grid.Row="5" Grid.ColumnSpan="2" Width="100"/>
+        <Button x:Name="btn_resultado" Content="=" Grid.Row="5" Grid.Column="4"/>
+
+        <Button x:Name="btn_limpiar" Content="Limpiar" Grid.Row="6" Grid.ColumnSpan="2" Width="100"/>
     </Grid>
 </Window>

@@ -8,9 +8,9 @@ namespace ListasEnlazadas
 {
     class Nodo
     {
-        public int Dato { get; set; }
+        public string Dato { get; set; }
         public Nodo Siguiente { get; set; }
-        public Nodo (int dato)
+        public Nodo (string dato)
         {
             Dato = dato;
             Siguiente = null;

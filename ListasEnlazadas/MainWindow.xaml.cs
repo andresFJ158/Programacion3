@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using Proyecto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,215 +24,78 @@ namespace ListasEnlazadas
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Pila pila;
-        public Cola cola;
-        public bool bandera;
-
+        private PostFija calculadora;
+        
         public MainWindow()
         {
             InitializeComponent();
-            pila = new Pila(5);
-            cola = new Cola(5);
-            bandera = true;
-        }
-        private bool isInteger(string input)
-        {
-            return int.TryParse(input, out _);
+            calculadora = new PostFija();
+            AsignarEventos();
         }
 
-        private void Cola_Add_Click(object sender, RoutedEventArgs e)
+        private void AsignarEventos()
         {
-            if(bandera == false)
+            foreach (UIElement elemento in GridCalculadora.Children)
             {
-                if (cola.Currentsize < cola.Maxsize)
+                if (elemento is Button boton)
                 {
-                    string t = ColaInput.Text;
-                    if (isInteger(t))
-                    {
-                        int data = Int32.Parse(t);
-                        ColaListBox.Items.Add(data);
-                        cola.enqueue(data);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ingresa un valor correcto", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    ColaInput.Clear();
+                    boton.Click += Boton_Click;
                 }
-                else
-                {
-                    MessageBox.Show("Cola llena");
-                }
-            }
-            else
-            {
-                if (pila.Currentsize < pila.Maxsize)
-                {
-                    string t = ColaInput.Text;
-                    if (isInteger(t))
-                    {
-                        int data = Int32.Parse(t);
-                        ColaListBox.Items.Insert(0, data);
-                        pila.push(data);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ingresa un valor correcto", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                    }
-                    ColaInput.Clear();
-                }
-                else
-                {
-                    MessageBox.Show("Pila llena");
-                }
-            }
-            VaciaCola();
-            FullCola();
-            TopCola();
-            MaximoCola();
-        }
-        private void Cola_Delete_Click(object sender, RoutedEventArgs e)
-        {
-            if(bandera == false)
-            {
-                if (!cola.isEmpty())
-                {
-                    cola.dequeue();
-                    ColaListBox.Items.RemoveAt(0);
-                }
-                else
-                {
-                    MessageBox.Show("Cola vacía");
-                }
-            }
-            else
-            {
-                pila.Pop();
-                ColaListBox.Items.RemoveAt(0);
-            }
-            VaciaCola();
-            FullCola();
-            TopCola();
-            MaximoCola();
-        }
-        private void VaciaCola()
-        {
-            if (bandera == false)
-            {
-                bool empty = cola.isEmpty();
-                if (empty)
-                {
-                    isEmptyText_Cola.Text = "SI";
-                }
-                else
-                {
-                    isEmptyText_Cola.Text = "NO";
-                }
-            }
-            else
-            {
-                bool empty = pila.IsEmpty();
-                if (empty)
-                    isEmptyText_Cola.Text = "SI";
-                else
-                    isEmptyText_Cola.Text = "NO";
             }
         }
 
-        private void FullCola()
+        private void Boton_Click(object sender, RoutedEventArgs e)
         {
-            if (bandera == false)
+            if (sender is Button boton)
             {
-                bool full = cola.isFull();
-                if (full)
-                    isFullText_Cola.Text = "SI";
-                else
-                    isFullText_Cola.Text = "NO";
-            }
-            else
-            {
-                bool empty = pila.IsFull();
-                if (empty)
-                    isFullText_Cola.Text = "SI";
-                else
-                    isFullText_Cola.Text = "NO";
-            }
-        }
-        private void TopCola()
-        {
-            if (bandera == false)
-            {
-                string topCola = cola.topElement();
-                CimaText_Cola.Text = topCola;
-            }
-            else
-            {
-                string topPila = pila.TopElement();
-                CimaText_Cola.Text = topPila;
-            }
-        }
-
-        private void MaximoCola()
-        {
-            if(bandera == false)
-            {
-                int m = cola.MaxSize();
-                MaxText_Cola.Text = m.ToString();
-            }
-            else
-            {
-                int m = pila.MaxSize();
-                MaxText_Cola.Text = m.ToString();
-            }
-        }
-        private void LimpiarCola_Click(object sender, RoutedEventArgs e)
-        {
-            if(bandera == false)
-            {
-                for (int i = 0; i < ColaListBox.Items.Count - 1; i++)
+                string contenido = boton.Content.ToString();
+                
+                if (contenido == "=")
                 {
-                    cola.dequeue();
+                    EvaluarExpresion();
                 }
-                cola.resetsize();
-                cola.Currentsize = 0;
-                ColaListBox.Items.Clear();
+                else if (contenido == "Borrar")
+                {
+                    BorrarUltimo();
+                }
+                else if (contenido == "Limpiar")
+                {
+                    ColaInput.Text = "";
+                }
+                else
+                {
+                    ColaInput.Text += contenido;
+                }
             }
-            else
+        }
+
+        private void EvaluarExpresion()
+        {
+            try
             {
-                pila.clearPila();
-                ColaListBox.Items.Clear ();
+                string expresionPostfija = ColaInput.Text;
+
+                if (string.IsNullOrWhiteSpace(expresionPostfija) || !expresionPostfija.All(c => Char.IsDigit(c) || "+-*/()".Contains(c)))
+                {
+                    throw new Exception("La expresión contiene caracteres no válidos.");
+                }
+
+                int resultado = calculadora.EvaluarExpresionPostFija(expresionPostfija, out expresionPostfija);
+                ColaInput.Text = resultado.ToString();
             }
-            VaciaCola();
-            FullCola();
-            TopCola();
-            MaximoCola();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la expresión: " + ex.Message);
+            }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            txtMetodo.Text = "Metodo Colas";
-            bandera = false;
-            pila.clearPila();
-            ColaInput.Text = "";
-            ColaListBox.Items.Clear();
-            isEmptyText_Cola.Text = "";
-            isFullText_Cola.Text = "";
-            MaxText_Cola.Text = "";
-            CimaText_Cola.Text = "";
-        }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BorrarUltimo()
         {
-            txtMetodo.Text = "Metodo Pilas";
-            bandera = true;
-            cola.dequeue();
-            ColaInput.Text = "";
-            ColaListBox.Items.Clear();
-            isEmptyText_Cola.Text = "";
-            isFullText_Cola.Text = "";
-            MaxText_Cola.Text = "";
-            CimaText_Cola.Text = "";
+            if (!string.IsNullOrEmpty(ColaInput.Text))
+            {
+                ColaInput.Text = ColaInput.Text.Substring(0, ColaInput.Text.Length - 1);
+            }
         }
     }
 }

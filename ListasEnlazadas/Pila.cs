@@ -11,7 +11,7 @@ namespace ListasEnlazadas
     {
         private class Node
         {
-            public int data;
+            public string data;
             public Node Link;
         }
         private Node top;
@@ -27,7 +27,7 @@ namespace ListasEnlazadas
             this.Maxsize = max;
             this.Currentsize = 0; 
         }
-        public void push(int x)
+        public void push(string x)
         {
             if (currentsize < maxsize)
             {
@@ -46,16 +46,22 @@ namespace ListasEnlazadas
                 return;
             }
         }
-        public void Pop()
+        public string Pop()
         {
             if (top == null)
             {
                 Console.WriteLine("Stack Underflow");
-                return;
+                throw new InvalidOperationException("La pila está vacía.");
             }
+
+            string valor = TopElement();
             top = top.Link;
             currentsize--;
+
+            return valor;
         }
+
+
         public bool IsEmpty()
         {
             return top == null;
